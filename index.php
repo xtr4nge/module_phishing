@@ -187,7 +187,7 @@ Loading, please wait...
 
             for ($i = 0; $i < count($logs); $i++) {
                 $filename = str_replace(".log","",str_replace($mod_logs_history,"",$logs[$i]));
-                echo "<a href='?logfile=".str_replace(".log","",str_replace($mod_logs_history,"",$logs[$i]))."&action=delete&tab=3'><b>x</b></a> ";
+                echo "<a href='?logfile=".str_replace(".log","",str_replace($mod_logs_history,"",$logs[$i]))."&action=delete&tab=2'><b>x</b></a> ";
                 echo $filename . " | ";
                 echo "<a href='?logfile=".str_replace(".log","",str_replace($mod_logs_history,"",$logs[$i]))."&action=view'><b>view</b></a>";
                 echo "<br>";
