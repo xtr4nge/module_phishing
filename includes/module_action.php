@@ -18,9 +18,9 @@
 ?>
 <?
 //include "../login_check.php";
+include "../../../config/config.php";
 include "../_info_.php";
-include "/usr/share/FruityWifi/www/config/config.php";
-include "/usr/share/FruityWifi/www/functions.php";
+include "../../../functions.php";
 
 include "options_config.php";
 
@@ -49,35 +49,43 @@ if($service == $mod_name) {
         // COPY LOG
         if ( 0 < filesize( $mod_logs ) ) {
             $exec = "cp $mod_logs $mod_logs_history/".gmdate("Ymd-H-i-s").".log";
-            exec("$bin_danger \"" . $exec . "\"" );
+            //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+            exec_fruitywifi($exec);
             
             $exec = "echo '' > $mod_logs";
-            exec("$bin_danger \"" . $exec . "\"" );
+            //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+            exec_fruitywifi($exec);
         }
 	
-	$exec = "ln -s /usr/share/FruityWifi/www/modules/phishing/includes/www.site /var/www/site";
-        exec("$bin_danger \"" . $exec . "\"" );
+        $exec = "ln -s $mod_path/includes/www.site /var/www/site";
+        //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
 	
         $exec = "$bin_sed -i 1i'<? include \\\"site\/index.php\\\"; \/\* FruityWifi-Phishing \*\/ ?>' /var/www/index.php";
-        exec("$bin_danger \"" . $exec . "\"" );
+        //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         
     } else if($action == "stop") {
 	
 	// STOP MODULE
 	
         $exec = "$bin_sed -i '/FruityWifi-Phishing/d' /var/www/index.php";
-        exec("$bin_danger \"" . $exec . "\"" );
+        //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
         
-	$exec = "rm /var/www/site";
-        exec("$bin_danger \"" . $exec . "\"" );
+        $exec = "rm /var/www/site";
+        //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
 	
 	// COPY LOG
         if ( 0 < filesize( $mod_logs ) ) {
             $exec = "cp $mod_logs $mod_logs_history/".gmdate("Ymd-H-i-s").".log";
-            exec("$bin_danger \"" . $exec . "\"" );
+            //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+            exec_fruitywifi($exec);
             
             $exec = "echo '' > $mod_logs";
-            exec("$bin_danger \"" . $exec . "\"" );
+            //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+            exec_fruitywifi($exec);
         }
 	
     }
@@ -86,8 +94,9 @@ if($service == $mod_name) {
 
 /*
 if($service == "install_portal") {
-    $exec = "/bin/ln -s /usr/share/FruityWifi/www/modules/captive/www.captive /var/www/site/captive";
-    exec("$bin_danger \"$exec\"");
+    $exec = "/bin/ln -s /usr/share/fruitywifi/www/modules/captive/www.captive /var/www/site/captive";
+    //exec("$bin_danger \"$exec\""); //DEPRECATED
+    exec_fruitywifi($exec);
 }
 */
 
@@ -99,14 +108,16 @@ if ($service == "users" and $id_data != "") {
 	if ($action == "delete") {
         
         $exec = "$bin_sed -i '/$id_data/d' $filename";
-        exec("$bin_danger \"$exec\"", $output);
+        //exec("$bin_danger \"$exec\"", $output); //DEPRECATED
+        $output = exec_fruitywifi($exec);
 	
         //$exec = "$bin_iptables -D internet -t mangle -m mac --mac-source $mac -j RETURN";
         //exec("$bin_danger \"$exec\"");
         
         // ADD TO LOGS
         $exec = "$bin_echo 'DELETE: $date|".date("Y-m-d h:i:s")."' >> $mod_logs ";
-        exec("$bin_danger \"$exec\"");
+        //exec("$bin_danger \"$exec\""); //DEPRECATED
+        exec_fruitywifi($exec);
         
 	} 
     
@@ -117,11 +128,13 @@ if ($service == "users" and $id_data != "") {
 if ($install == "install_$mod_name") {
 
     $exec = "$bin_chmod 755 install.sh";
-    exec("$bin_danger \"$exec\"" );
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
 
-    $exec = "$bin_sudo ./install.sh > /usr/share/FruityWifi/logs/install.txt &";
-    exec("$bin_danger \"$exec\"" );
-
+    $exec = "$bin_sudo ./install.sh > $log_path/install.txt &";
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
+    
     header('Location: ../../install.php?module='.$mod_name);
     exit;
 }

@@ -43,8 +43,8 @@ $(function() {
 
 <?
 
-include "_info_.php";
 include "../../config/config.php";
+include "_info_.php";
 include "../../login_check.php";
 include "../../functions.php";
 
@@ -66,7 +66,8 @@ $service = $_POST["service"];
 // DELETE LOG
 if ($logfile != "" and $action == "delete") {
     $exec = "rm ".$mod_logs_history.$logfile.".log";
-    exec("$bin_danger \"$exec\"", $dump);
+    //exec("$bin_danger \"$exec\"", $dump); //DEPRECATED
+    exec_fruitywifi($exec);
 }
 
 ?>
@@ -77,7 +78,8 @@ if ($logfile != "" and $action == "delete") {
     &nbsp;&nbsp;version <?=$mod_version?><br>
     <?
     $exec = "$mod_isup";
-    $ismoduleup = exec("$bin_danger \"$exec\"" );
+    //$ismoduleup = exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    $ismoduleup = exec_fruitywifi($exec);
     //$ismoduleup = exec("ps auxww | grep ngrep | grep -v -e 'grep ngrep'");
     if ($ismoduleup != "") {
         echo "&nbsp;$mod_alias  <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=$mod_name&action=stop&page=module'><b>stop</b></a>";
@@ -142,7 +144,8 @@ Loading, please wait...
             $filename = $file_users;
             
             $exec = "$bin_cat $filename";
-            exec("$bin_danger \"$exec\"", $output);
+            //exec("$bin_danger \"$exec\"", $output); //DEPRECATED
+            $output = exec_fruitywifi($exec);
             ?>
             
             <table border='0'>
