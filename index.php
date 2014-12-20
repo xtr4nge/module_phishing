@@ -81,7 +81,7 @@ if ($logfile != "" and $action == "delete") {
     //$ismoduleup = exec("$bin_danger \"$exec\"" ); //DEPRECATED
     $ismoduleup = exec_fruitywifi($exec);
     //$ismoduleup = exec("ps auxww | grep ngrep | grep -v -e 'grep ngrep'");
-    if ($ismoduleup != "") {
+    if ($ismoduleup[0] != "") {
         echo "&nbsp;$mod_alias  <font color='lime'><b>enabled</b></font>.&nbsp; | <a href='includes/module_action.php?service=$mod_name&action=stop&page=module'><b>stop</b></a>";
     } else { 
         echo "&nbsp;$mod_alias  <font color='red'><b>disabled</b></font>. | <a href='includes/module_action.php?service=$mod_name&action=start&page=module'><b>start</b></a>"; 
@@ -91,7 +91,6 @@ if ($logfile != "" and $action == "delete") {
 </div>
 
 <br>
-
 
 <div id="msg" style="font-size:largest;">
 Loading, please wait...
