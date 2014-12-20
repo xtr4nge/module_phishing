@@ -61,6 +61,11 @@ if($service == $mod_name) {
         //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
         exec_fruitywifi($exec);
 	
+        if (!file_exists("/var/www/index.php")) {
+            $exec = "$bin_echo '.' >> /var/www/index.php";
+            exec_fruitywifi($exec);
+        }
+    
         $exec = "$bin_sed -i 1i'<? include \\\"site\/index.php\\\"; \/\* FruityWifi-Phishing \*\/ ?>' /var/www/index.php";
         //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
         exec_fruitywifi($exec);
